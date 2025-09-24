@@ -1,0 +1,188 @@
+:root {
+  --animation-duration: 4s;
+}
+
+body {
+  background-color: #1a1a1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+.animation-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 400px;
+  height: 400px;
+}
+
+/* Base styles for the elements */
+.sparkle,
+.curve-shape,
+.elevate-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.elevate-text {
+  white-space: nowrap;
+}
+
+.letter {
+  display: inline-block;
+  opacity: 0;
+}
+
+/* *
+ * ANIMATION KEYFRAMES
+ *
+ */
+
+/* Sparkle Animation */
+@keyframes sparkle-anim {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    background-color: white;
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1) rotate(45deg);
+    background-color: white;
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1.1) rotate(90deg);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -120%) scale(1) rotate(135deg);
+    background-color: #999;
+  }
+  40%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -150%) scale(0.5) rotate(180deg);
+  }
+}
+
+/* Curved Shape Animation */
+@keyframes curve-anim {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5, 0) rotateX(0deg);
+    background-color: white;
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1, 0.1) rotateX(0deg);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1, 1.2) rotateX(180deg);
+  }
+  40% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1, 1) rotateX(180deg);
+    background-color: #999;
+  }
+  50% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5, 0) rotateX(180deg);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Text Animation */
+@keyframes text-anim {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*
+ *
+ * ANIMATION TRIGGERS
+ *
+ */
+
+.is-playing .sparkle {
+  animation: sparkle-anim var(--animation-duration) forwards;
+}
+
+.is-playing .curve-shape {
+  animation: curve-anim var(--animation-duration) forwards;
+}
+
+.is-playing .elevate-text {
+  animation-delay: calc(var(--animation-duration) * 0.5); /* Starts after 2 seconds */
+}
+
+.is-playing .letter {
+  animation: text-anim 0.5s forwards;
+}
+
+/* Stagger the text animation */
+.is-playing .letter:nth-child(1) { animation-delay: 2s; }
+.is-playing .letter:nth-child(2) { animation-delay: 2.1s; }
+.is-playing .letter:nth-child(3) { animation-delay: 2.2s; }
+.is-playing .letter:nth-child(4) { animation-delay: 2.3s; }
+.is-playing .letter:nth-child(5) { animation-delay: 2.4s; }
+.is-playing .letter:nth-child(6) { animation-delay: 2.5s; }
+.is-playing .letter:nth-child(7) { animation-delay: 2.6s; }
+
+/*
+ *
+ * SHAPE STYLING
+ *
+ */
+
+.sparkle {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 69% 57%, 80% 91%, 50% 70%, 20% 91%, 31% 57%, 2% 35%, 39% 35%);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 69% 57%, 80% 91%, 50% 70%, 20% 91%, 31% 57%, 2% 35%, 39% 35%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.curve-shape {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  background: white;
+  transform: translate(-50%, -50%) rotate(180deg);
+  transform-origin: center;
+}
+
+button {
+  margin-top: 150px; /* Adjust spacing */
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 10;
+}
