@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 export default function Animation({
   className,
   loop = false,
-  size = 1000,
+  size = 900,
   speed = 1,
   showLabel = true,
   label = "ELEVATE",
@@ -220,6 +220,25 @@ export default function Animation({
               transition={{
                 delay: tDraw + gap + tSeed + tSweep * 0.3,
                 duration: tSweep * 0.7,
+                ease: easeInOut,
+                ...repeatTransition,
+              }}
+            />
+
+            {/* Diagonal sweep to create a crisp wedge edge (left → right) */}
+            <motion.rect
+              x={-240}
+              y={70}
+              width={320}
+              height={260}
+              rx={6}
+              fill="white"
+              transform="rotate(18 160 200)"
+              initial={{ x: -240, opacity: 1 }}
+              animate={{ x: 260, opacity: 1 }}
+              transition={{
+                delay: tDraw + gap + tSeed * 0.85,
+                duration: tSweep * 0.9,
                 ease: easeInOut,
                 ...repeatTransition,
               }}
